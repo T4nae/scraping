@@ -3,7 +3,7 @@ from selenium import webdriver
 
 class crawler:
     def __init__(self, url):
-        self.CHROME_DRIVER = 'drivers\chromedriver.exe'
+        self.CHROME_DRIVER = 'utils\drivers\chromedriver.exe'
         self.url = url
         self.driver = None
 

@@ -1,2 +1,5 @@
 # Dependency directories
 .venv/
+
+# cache
+utils/__pycache__/
