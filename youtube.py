@@ -1,62 +1,59 @@
 from utils.crawlers import crawler
+from utils.data import data
 from bs4 import BeautifulSoup
+import csv
 
-def extract_title():
+def explore():
     """
-    extract yt titles from source
+    get details like titles, links, views and posted ago of videos in explore section
     """
 
     crawl = crawler('https://www.youtube.com/feed/explore')
     source = crawl.Selenium()
-    #sleep(2)                                  # for some reason script dont work if page is not loaded first
+   
     crawl.driver.execute_script(
             'window.scrollTo(0, document.getElementById("page-manager").scrollHeight);')
     crawl.close()
-    # making soup
-    soup = BeautifulSoup(source, 'lxml')
-    videos = []
 
-    # finding needed divs of source
-    videos_selector = soup.find_all(
+    # making soup and lists
+    soup = BeautifulSoup(source, 'lxml')
+    titles = []
+    links = []
+    views = []
+    posted = []
+
+    # finding titles from explore section
+    titles_selector = soup.find_all(
         'a', class_='yt-simple-endpoint style-scope ytd-video-renderer')
 
-    # iterating and extractig needed data
-    for video_selector in videos_selector:
-        title = video_selector.get_text()
-        videos.append(title)
+    for title_selector in titles_selector:
+        title = title_selector.get_text()
+        titles.append(title)
 
-    return videos
-
-def extract_links():
-    """
-    extract yt links from source
-    """
-
-    crawl = crawler('https://www.youtube.com/feed/explore')
-    source = crawl.Selenium()
-    #sleep(2)                                  # for some reason script dont work if page is not loaded first
-    crawl.driver.execute_script(
-            'window.scrollTo(0, document.getElementById("page-manager").scrollHeight);')
-    crawl.close()
-    # making soup
-    soup = BeautifulSoup(source, 'lxml')
-    links = []
-
-    # finding needed divs of source
+    # getting links of explore section
     links_selector = soup.find_all(
         'a', class_='yt-simple-endpoint style-scope ytd-video-renderer')
-    for links in links_selector:
-        print(links.get('href'))
+    for link_selector in links_selector:
+        link = link_selector.get('href')
+        links.append("https://www.youtube.com" + link)
 
-"""
-    # iterating and extractig needed data
-    for video_selector in videos_selector:
-        title = video_selector.get_text()
-        videos.append(title)
+    # finding views and posted ago
+    views_selector = soup.find_all(
+        'span', class_='style-scope ytd-video-meta-block')
+    for view_selector in views_selector:
+        view = view_selector.get_text()
+        if view.endswith("ago"):
+            posted.append(view)
+        else:
+            views.append(view)
 
-    return videos
+    # arranging data        
+    file = data()
+    file.concatenate(titles,views,posted,links)
 
-"""
+    return file
+
+
 if __name__ == "__main__":
-    #print(extract_title())
-    extract_links()
+    file = explore()
+    print(file.view_data())
