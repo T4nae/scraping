@@ -1,7 +1,6 @@
 from utils.crawlers import crawler
 from utils.data import data
 from bs4 import BeautifulSoup
-import csv
 
 def explore():
     """
