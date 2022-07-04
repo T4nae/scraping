@@ -7,27 +7,23 @@ class data:
         self.dataframe = None
         self.path = 'data.csv'
         
-    def create_csv(self):
+    def create_csv(self, headers):
         if os.path.exists(self.path):
             self.path = self.path + '(1)'
 
-        with open(self.path, 'w'):
-            pass
+        with open(self.path, 'w') as file:
+            writer = csv.writer(file)
+            writer.writerow(headers)
     
     def write_csv(self, row):
         with open(self.path, 'a', encoding='UTF8') as file:
             writter = csv.writer(file)
             writter.writerow(row)
         
-    def concatenate(self, *args):
+    def concatenate(self, lists):
         """
-        concatenate 2 or more lists together and make csv file
+        concatenate list of lists together and make csv file
         """
-        lists = []
-        for lsts in args:
-            lists.append(lsts)
-
-        self.create_csv()
 
         data = []
         for nelmnts in range(len(lists[0])): # no of elements in list
