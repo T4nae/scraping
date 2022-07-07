@@ -1,8 +1,7 @@
+import undetected_chromedriver.v2 as uc
 from selenium import webdriver
 import selenium.common.exceptions as ex
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-
 
 
 class crawler:
@@ -11,22 +10,35 @@ class crawler:
         self.url = url
         self.driver = None
 
-    def Selenium(self, headless = True):
+    def Selenium(self, undetected = False, headless = True):
         # set chrome option
-        options = webdriver.ChromeOptions()
+        # check if needs undetected
+        if undetected:
+            options = uc.ChromeOptions()
+        else:
+            options = webdriver.ChromeOptions()
+            options.add_argument("--no-sandbox")
+            options.add_argument('--ignore-certificate-errors')
+
         options.headless = headless
 
+        options.add_argument("--window-size=1080,1080")
+        options.add_argument('--allow-running-insecure-content')
         options.add_argument("--disable-hang-monitor")
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--disable-infobars")
         options.add_argument("--disable-gpu")
-        options.add_argument('--ignore-certificate-errors')
         #options.add_argument('--incognito')
-        options.add_argument("--no-sandbox")
+    
 
         # start chrome
-        self.driver = webdriver.Chrome(executable_path=self.CHROME_DRIVER,
-                                options=options)
+        # check if needs undetected
+        if undetected:
+            self.driver = uc.Chrome(driver_executable_path=self.CHROME_DRIVER,
+                                    options=options, use_subprocess=True)                      
+        else:                 
+            self.driver = webdriver.Chrome(executable_path=self.CHROME_DRIVER,
+                                    options=options)
 
         # read website by url
         self.driver.get(self.url)
@@ -35,6 +47,11 @@ class crawler:
         page_info = 'Page title : "{title}"\nCurrent URL : "{url}"'
         print(page_info.format(title=self.driver.title, url=self.driver.current_url))
         
+        return
+
+    def get_url(self, url):
+        self.url = url
+        self.driver.get(self.url)
         return
 
     def get_source(self):
@@ -66,11 +83,6 @@ class crawler:
             self.find(type, locator)
         except ex.NoSuchElementException:
             return False
-        return True
-
-    def locate_await_presence(self, type, locator):
-        while self.locate_presence(type, locator) == False:
-            WebDriverWait(self.driver, timeout= 15).untill(lambda d: d.presence_of_element_located(locator))
         return True
 
     def close(self):
