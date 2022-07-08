@@ -1,9 +1,7 @@
 from utils.crawlers import crawler
 from utils.data import data
-from bs4 import BeautifulSoup
 from getpass import getpass
 import argparse
-from time import sleep
 
 def extract_data(source, args):
     # making lists to hold data
@@ -72,8 +70,6 @@ def subsciptions(args):
         loginBox.send_keys(args.id)
         nextButton = crawl.find('XPATH', '//*[@id ="identifierNext"]')
         nextButton.click()
-        sleep(3)
-        crawl.driver.get_screenshot_as_file('screenshot.png')
         passWordBox = crawl.find('XPATH', '//*[@id ="password"]/div[1]/div / div[1]/input')
         passWordBox.send_keys(pwd)
         nextButton = crawl.find('XPATH', '//*[@id ="passwordNext"]')
