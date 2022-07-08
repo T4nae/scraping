@@ -1,5 +1,3 @@
-# py youtube.py --feed subscriptions --id plsletmein69420@gmail.com --pwd iwantaccessasap
-
 from utils.crawlers import crawler
 from utils.data import data
 from bs4 import BeautifulSoup
