@@ -1,5 +1,5 @@
 import csv
-import os
+from os import path
 import pandas as pd
 from bs4 import BeautifulSoup
 from lxml import etree
@@ -11,18 +11,21 @@ class data:
         self.path = 'data.csv'
         self.source = source
         
-    def create_csv(self, headers):
+    def create_csv(path, headers):
         """
         creates a unique csv file with headers
         """
-
-        if os.path.exists(self.path):
-            self.path = self.path + '(1)'
-
-        with open(self.path, 'w') as file:
+        
+        while path.exists(path + '.csv'):
+            if path.endswith(')') and path[-2:-1].isnumeric() and path[-3:-2] == '(':
+                path = path[:-2] + str(int(path[-2:-1]) + 1) + ')'
+            else:
+                path = path + '(1)'
+            
+        with open(path + '.csv', 'w') as file:
             writer = csv.writer(file)
-            writer.writerow(headers)
-    
+            writer.writerow(headers) 
+               
     def write_csv(self, row):
         """
         write data into row at a time in already created csv file
