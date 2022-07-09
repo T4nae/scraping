@@ -8,3 +8,4 @@ utils/__pycache__/
 testing.py
 source.txt
 *.csv
+*.pkl
