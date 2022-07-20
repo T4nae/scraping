@@ -1,0 +1,1 @@
+This folder holds CSV data files from data scrapped.

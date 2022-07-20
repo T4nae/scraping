@@ -1,0 +1,1 @@
+This folder holds the cookies to quick login and easy switiching for this project.
