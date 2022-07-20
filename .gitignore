@@ -2,7 +2,8 @@
 .venv/
 
 # cache
-utils/__pycache__/
+src/utils/__pycache__
+drivers/chromedriver.exe
 
 # debuging and testing files
 testing.py
