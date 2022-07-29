@@ -51,7 +51,7 @@ class data:
         """
         prints dataframe from csv file in a more readable manner
         """
-        self.dataframe = pd.read_csv(self.path)
+        self.dataframe = pd.read_csv(self.path + '.csv')
         return self.dataframe
 
     def find_by_id(self, div, ids, type='text'):
