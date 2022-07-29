@@ -135,7 +135,7 @@ class crawler:
         """
         get cookies from the browser to stop repetative task everytime program runs
         """
-        pickle.dump(self.driver.get_cookies(), open('cookies\\' + name,"wb"))
+        pickle.dump(self.driver.get_cookies(), open('..\\cookies\\' + name,"wb"))
 
         return   
 
@@ -143,7 +143,7 @@ class crawler:
         """
         add cookies from the browser to stop repetative task everytime program runs
         """
-        cookies = pickle.load(open('cookies\\' + name, "rb"))
+        cookies = pickle.load(open('..\\cookies\\' + name, "rb"))
         for cookie in cookies:
             self.driver.add_cookie(cookie)
 
