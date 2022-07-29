@@ -58,9 +58,9 @@ def subsciptions(args):
     """
     url = 'https://www.youtube.com/feed/subscriptions'
     crawl = crawler(url)
-    if path.exists('youtubecookie.pkl') and args.cookie == True:
+    if path.exists('..\cookies\youtubecookie.pkl') and args.cookie == True:
       crawl.Selenium() # since we using cookies no need to use undetected can be run in headless
-      crawl.add_cookies('youtubecookie.pkl')
+      crawl.add_cookies('..\cookies\youtubecookie.pkl')
       crawl.get_url(url)
       crawl.driver.implicitly_wait(5)
       crawl.locate_presence('XPATH', '//*[@id="endpoint"]/tp-yt-paper-item/yt-formatted-string')
@@ -82,7 +82,7 @@ def subsciptions(args):
       nextButton = crawl.find('XPATH', '//*[@id ="passwordNext"]')
       nextButton.click()
       crawl.locate_presence('XPATH', '//*[@id="endpoint"]/tp-yt-paper-item/yt-formatted-string')
-      crawl.get_cookies('youtubecookie.pkl')        
+      crawl.get_cookies('..\cookies\youtubecookie.pkl')        
 
     source = crawl.get_source()
     crawl.close()
