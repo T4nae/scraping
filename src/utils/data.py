@@ -30,7 +30,7 @@ class data:
         """
         write data into row at a time in already created csv file
         """
-        with open(self.path, 'a', encoding='UTF8') as file:
+        with open(self.path + '.csv', 'a', encoding='UTF8') as file:
             writter = csv.writer(file)
             writter.writerow(row)
         
