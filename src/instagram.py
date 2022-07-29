@@ -36,18 +36,18 @@ def login(args):
     #noNotifictions = crawl.find('XPATH', '//*[@id="mount_0_0_bS"]/div/div[1]/div/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div/div/div/div[3]/button[1]')
     #noNotifictions.click()
 
-    crawl.get_cookies('instacookie.pkl')
+    crawl.get_cookies('..\cookies\instacookie.pkl')
     return crawl
 
 def hompage(args):
     """
     scrape contents of homepage
     """
-    if path.exists('instacookie.pkl') and args.cookie == True:
+    if path.exists('..\cookies\instacookie.pkl') and args.cookie == True:
         crawl = crawler('https://www.instagram.com/')
         crawl.Selenium(headless=False)
         crawl.driver.implicitly_wait(5)
-        crawl.add_cookies('instacookie.pkl')
+        crawl.add_cookies('..\cookies\instacookie.pkl')
         crawl.get_url('https://www.instagram.com/')
     else:    
         crawl = login(args)
@@ -74,11 +74,11 @@ def user(args):
     """
     scrape contents of an particular user
     """
-    if path.exists('instacookie.pkl') and args.cookie == True:
+    if path.exists('..\cookies\instacookie.pkl') and args.cookie == True:
         crawl = crawler('https://www.instagram.com/')
         crawl.Selenium(headless=False)
         crawl.driver.implicitly_wait(5)
-        crawl.add_cookies('instacookie.pkl')
+        crawl.add_cookies('..\cookies\instacookie.pkl')
         crawl.get_url('https://www.instagram.com/')
     else:    
         crawl = login(args)
