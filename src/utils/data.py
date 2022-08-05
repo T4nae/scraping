@@ -54,23 +54,31 @@ class data:
         self.dataframe = pd.read_csv(self.path + '.csv')
         return self.dataframe
 
-    def find_by_id(self, div, ids, type='text'):
+    def find(self, div, ids= '', CLASS= '', type='text'):
         """
-        find data in source by div and id
+        find data in source by div and ID or CLASS
         """
         data = []
         
         soup = BeautifulSoup(self.source, 'lxml')
-        if type == 'text':
+        if type == 'text' and ids != '':
             for selector in soup.find_all(div, id= ids):
                 data.append(selector.text)
-
-        elif type == 'links':    
-            for selector in soup.find_all('a', id='video-title', href=True):
+        elif type == 'text' and CLASS != '':
+            mydiv = soup.find_all(div, class_ = CLASS)
+            for selector in mydiv:
+                data.append(selector.get_text())               
+        elif type == 'links' and ids != '':    
+            for selector in soup.find_all(div, id=ids, href=True):
                 data.append(selector['href'])
+        elif type == 'links' and CLASS != '':
+            mydiv = soup.find_all(div, class_ = CLASS, href=True)
+            for selector in mydiv:
+                data.append(selector['href'])
+        else:
+            data = None
 
         return data
-
 
     def find_by_xpath(self, xpath):
         """
