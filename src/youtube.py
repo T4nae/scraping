@@ -36,7 +36,7 @@ def extract_data(source, args):
     # getting links of videos
     if args.links == True:
         links = []
-        href = file.find_by_id('a', '#video-title', 'links')
+        href = file.find('a', ids= '#video-title', type= 'links')
         for link in href:
             links.append("https://www.youtube.com" + link)
         lists.append(links)
@@ -119,17 +119,17 @@ if __name__ == "__main__":
       help='email id to login into your Youtube account')
     parser.add_argument('--pwd', type=str, default='',
       help='password to email id to login into your Youtube account')           
-    parser.add_argument('--titles', type=bool, default=True,
+    parser.add_argument('--titles', action='store_false',
       help='to enable Titles in output and enabled by default. ')
-    parser.add_argument('--views', type=bool, default=True,
+    parser.add_argument('--views', action='store_false',
       help='to enable Views count in output and enabled by default. ')
-    parser.add_argument('--postedago', type=bool, default=True,
+    parser.add_argument('--postedago', action='store_false',
       help='to enable video Posted ago in output and enabled by default. ')
-    parser.add_argument('--links', type=bool, default=True,
+    parser.add_argument('--links', action='store_false',
       help='to enable links of the videos in output and enabled by default. ')
-    parser.add_argument('--v', type=bool , default=True,
+    parser.add_argument('--v', action='store_false',
       help='to enable show data in commandline in output and enabled by default. ')
-    parser.add_argument('--cookie', type=bool, default=True,
+    parser.add_argument('--cookie', action='store_false',
       help='to enable use of cookie to login to last used account')  
 
     args = parser.parse_args()  
