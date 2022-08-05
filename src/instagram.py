@@ -111,7 +111,7 @@ if __name__ == '__main__':
              'you can leave this param and get more secure pass screen in terminal') 
     parser.add_argument('--user', type=str, default='',
         help='username for user to get feed from')
-    parser.add_argument('--cookie', type=bool, default=True,
+    parser.add_argument('--cookie', action='store_false',
       help='to enable use of cookie to login to last used account')
 
 
