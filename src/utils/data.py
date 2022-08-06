@@ -13,15 +13,20 @@ class data:
         
     def create_csv(self, headers):
         """
-        creates a unique csv file with headers
+        creates a unique csv file with headers to avoid overwrite of usefull data
         """
-        
+        # length of deafult path
+        size = len(self.path) + 1
+
+        # checks if path exists after adding 1 each time
         while path.exists(self.path + '.csv'):
-            if self.path.endswith(')') and self.path[-2:-1].isnumeric() and self.path[-3:-2] == '(':
-                self.path = self.path[:-2] + str(int(self.path[-2:-1]) + 1) + ')'
+            # adds 1 each time to path 
+            if self.path.endswith(')') and self.path[size:][:-1].isnumeric() and self.path[size - 1] == '(':
+                self.path = self.path[:size] + str(int(self.path[size:][:-1]) + 1) + ')'
             else:
                 self.path = self.path + '(1)'
-            
+
+        # creates a unique csv file    
         with open(self.path + '.csv', 'w') as file:
             writer = csv.writer(file)
             writer.writerow(headers) 
@@ -38,9 +43,19 @@ class data:
         """
         concatenate list of lists together and make csv file
         """
+        # lists to hold temp data
+        data = [] 
+        items = []
 
-        data = []
-        for nelmnts in range(len(lists[0])): # no of elements in list
+        # findind minimum no. of elements out of all lists
+        for i in lists:
+            if i != []:
+                items.append(len(i))
+            else:
+                pass 
+        size = min(items)
+
+        for nelmnts in range(size): # minimium no of elements in list
             for nlsts in range(len(lists)):  # no of lists 
                 data.append(lists[nlsts][nelmnts])   
                 #print(lists[nlsts][nelmnts])
