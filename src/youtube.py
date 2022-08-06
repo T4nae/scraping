@@ -36,7 +36,7 @@ def extract_data(source, args):
     # getting links of videos
     if args.links == True:
         links = []
-        href = file.find('a', ids= '#video-title', type= 'links')
+        href = file.find('a', ids= 'video-title', type= 'links')
         for link in href:
             links.append("https://www.youtube.com" + link)
         lists.append(links)
