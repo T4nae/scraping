@@ -77,7 +77,7 @@ def subreddit(args):
     crawl = crawler('https://reddit.com/r/' + args.sub)
     crawl.Selenium()
     crawl.driver.implicitly_wait(15)
-    crawl.await_element('CLASS', '_eYtD2XCVieq6emjKBH3m')
+    crawl.locate_presence('CLASS', '_eYtD2XCVieq6emjKBH3m')
 
     height = 0
     while height <= args.pages:
@@ -125,10 +125,6 @@ if __name__ == '__main__':
 
     parser.add_argument('--feed', choices=['subreddit', 'user'], type=str, default='subreddit',
                         help='to select between viewing subreddit feed or user feed. ')
-    parser.add_argument('--id', type=str,
-                        help='email id to login into your reddit account')
-    parser.add_argument('--pwd', type=str, default='',
-                        help='password to email id to login into your reddit account')
     parser.add_argument('--username', type=str,
                         help='user you want to scrape posts from ')
     parser.add_argument('--sub', type=str, default='popular',
@@ -148,8 +144,6 @@ if __name__ == '__main__':
                         help='to enable reactons on posts like upvotes and comments in output and enabled by default. ')
     parser.add_argument('--v', action='store_false',
                         help='to enable show data in commandline in output and enabled by default. ')
-    parser.add_argument('--cookie', action='store_false',
-                        help='to enable use of cookie to login to last used account')
 
     args = parser.parse_args()
 
